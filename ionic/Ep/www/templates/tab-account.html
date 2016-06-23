@@ -1,0 +1,41 @@
+<ion-header-bar>
+<h1 class="title"></h1>
+<div class="buttons">
+ <button class="button button-clear" ng-click="closeAdd()"><i class="ion-android-close btn-fechar"></i></button></div>
+</ion-header-bar>
+<ion-content>
+
+     <div class="list">
+
+     	
+
+  <label class="item item-input">
+  	<input type="text" placeholder="Nome" ng-model="valores.nome">
+  </label>
+
+
+  <label class="item item-input">
+  	<input type="tel" placeholder="Telefone" ng-model="valores.telefone">
+  </label>
+
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Operadoras
+    </div>
+    <select ng-model="valores.operadora">
+      <option value="vivo">Vivo</option>
+      <option selected value="tim">Tim</option>
+      <option value="oi">Oi</option>
+       <option value="claro">Claro</option>
+    </select>
+  </label>
+
+</div>
+
+<button class="button button-block button-balanced" ng-click="cadastrar(valores)">
+Cadastrar
+</button>
+
+
+</ion-content>
+</ion-modal-view>
