@@ -7,14 +7,14 @@
 <ion-view view-title="{{nomeV}}">
   <ion-content class="padding">
 
-      <ion-list>
+      <ion-list ng-show="btnDeletar">
       <ion-item class="item-remove-animate item-avatar item-icon-right"  type="item-text-wrap" ng-click="alterar()" >
         
         <ANY ng-switch="operadoraV">
-  <ANY ng-switch-when="tim"> <img ng-src="img/tim_logo.png"></ANY>
+  <ANY ng-switch-when="Tim"> <img ng-src="img/tim_logo.png"></ANY>
   <ANY ng-switch-when="vivo"><img ng-src="img/Vivo.png"></ANY>
-  <ANY ng-switch-when="claro"><img ng-src="img/logo_claro_2.png"></ANY>
-  <ANY ng-switch-when="oi"><img ng-src="img/logo-oi.png"></ANY>
+  <ANY ng-switch-when="Claro"><img ng-src="img/logo_claro_2.png"></ANY>
+  <ANY ng-switch-when="Oi"><img ng-src="img/logo-oi.png"></ANY>
 </ANY>
 
         
@@ -22,7 +22,7 @@
         <p>{{telefoneV}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+        <ion-option-button class="button-assertive" ng-click ="deletar(idV)">
           Delete
         </ion-option-button>
       </ion-item>
@@ -54,7 +54,7 @@
   </label>
 
 
-  <button class="button button-block button-balanced" ng-click="atualizar()">
+  <button class="button button-block button-balanced" ng-click="atualizar(nomeV, telefoneV, operadoraV)">
   Atualizar
 </button>
 

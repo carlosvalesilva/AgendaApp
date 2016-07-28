@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 //metodo que chama os dados da API ou lista no array
 
-.controller('DashCtrl', function($scope, $http,$ionicModal) {
+.controller('DashCtrl', function($scope, $http,$ionicModal, $location) {
 $scope.lista = [];
  var headers = {
   "authorization": "Basic MjY4ZTE3YjktZWZkMS00MDc1LWIxNjAtNWExMDY5NTE5YmIwOjg4OTBiY2YzLTgyMTItNDE0Zi1hOTkyLWZlMWQxZWEzZGNiNA==",
@@ -15,16 +15,14 @@ $scope.lista = [];
 
 
  $scope.btnAlterar = false;
- 
+ $scope.btnDeletar = true;
  $scope.alterar = function(){
-  
-  $scope.btnAlterar = true;
-
+ $scope.btnAlterar = true;
 
  }
 
 $scope.ver = function(id){
-
+  $scope.btnDeletar = true;
  $scope.nomeV = $scope.lista[id].nome;
   $scope.idV = $scope.lista[id].id;
  $scope.telefoneV = $scope.lista[id].telefone;
@@ -35,7 +33,7 @@ $scope.ver = function(id){
 }
 
  $scope.carregar = function(){
-
+delete $scope.lista;
 var url = "https://appintel.apispark.net/v1/cadastros/";
 $http({
   method: 'GET',
@@ -57,7 +55,7 @@ $http({
     telefone:valores.telefone,
     operadora:valores.operadora
 
-   };
+   }
    console.log(data);
 
    var url = "https://appintel.apispark.net/v1/cadastros/";
@@ -75,43 +73,58 @@ $http({
 
 
 
-   $scope.atualizar = function(id){
-  var data = {
+   $scope.atualizar = function(nome, telefone, operadora){
+  var _data = {
     
-    nome:valores.nome,
-    telefone:valores.telefone,
-    operadora:valores.operadora
+    "nome":nome,
+    "telefone":telefone,
+    "operadora":operadora
 
    }
 
-   var url = "https://appintel.apispark.net/v1/cadastros/"+id;
+   console.log(_data);
+
    $http({
       method: 'PUT',
-      url: url,
-      data: data,
+      url: "https://appintel.apispark.net/v1/cadastros/"+$scope.idV,
+      data:_data,
       headers :headers
    }).success(function(data){
-
+    $scope.btnAlterar = false;
+    delete $scope.lista;
+    $scope.carregar();
     console.log(data);
-    
    }).error(function(data){
+
    });
   }
 
 
-  $scope.deletar= function( id){
+  $scope.deletar = function(id){
 
    var url = "https://appintel.apispark.net/v1/cadastros/"+id;
+
+     var confirmar = confirm("Deseja deletar este registro");
+      
+
+      if(confirmar == true){
+
+   $location.path('/tab/chats');
    $http({
       method: 'DELETE',
       url: url,
       headers :headers
    }).success(function(data){
-
     console.log(data);
+    $scope.btnAlterar = false;
+    $scope.btnDeletar = false;
+    $scope.carregar();
     
    }).error(function(data){
-   });
+   });      
+
+  }
+
   }
 
 
